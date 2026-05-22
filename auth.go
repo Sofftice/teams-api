@@ -14,26 +14,26 @@ type AuthService struct {
 }
 
 type RefreshAccessTokenResponse struct {
-		Token_type string `json:"token_type"`
-		Scope string `json:"scope"`
-		Expires_in int `json:"expires_in"`
-		Ext_expires_in int `json:"ext_expires_int"`
-		Access_token string `json:"access_token"`
-		Refresh_token string `json:"refresh_token"`
-		Refresh_token_expires_in int `json:"refresh_token_expires_in"`
-		Id_token string `json:"id_token"`
-		Client_info string `json:"client_info"`
+	TokenType             string `json:"token_type"`
+	Scope                 string `json:"scope"`
+	ExpiresIn             int    `json:"expires_in"`
+	ExtInspiresIn         int    `json:"ext_expires_int"`
+	AccessToken           string `json:"access_token"`
+	RefreshToken          string `json:"refresh_token"`
+	RefreshTokenExpiresIn int    `json:"refresh_token_expires_in"`
+	IdToken               string `json:"id_token"`
+	ClientInfo            string `json:"client_info"`
 }
 
 func (a *AuthService) RefreshAccessToken(ctx context.Context) (RefreshAccessTokenResponse, error) {
 	var body RefreshAccessTokenResponse
-	
+
 	data := url.Values{}
-	data.Set("client_id", a.c.config.client_id)
+	data.Set("client_id", a.c.config.ClientId)
 	data.Set("scope", "https://api.spaces.skype.com/.default openid profile offline_access")
 	data.Set("grant_type", "refresh_token")
 	data.Set("client_info", "1")
-	data.Set("refresh_token", a.c.Refresh_token)
+	data.Set("refresh_token", a.c.RefreshToken)
 	data.Set("claims", "{\"access_token\":{\"xms_cc\":{\"values\":[\"CP1\"]}}}")
 
 	req, err := http.NewRequestWithContext(ctx, "POST", "https://login.microsoftonline.com/fe0ca031-7f0a-4b82-8eea-e46b799fdc86/oauth2/v2.0/token?client-request-id=Core-69617e44-2977-4af4-9277-2f11eec04c78", strings.NewReader(data.Encode()))
@@ -53,8 +53,8 @@ func (a *AuthService) RefreshAccessToken(ctx context.Context) (RefreshAccessToke
 		return body, fmt.Errorf("failed to decode response body: %s", err.Error())
 	}
 
-	a.c.Access_token = body.Access_token
-	a.c.Refresh_token = body.Refresh_token
+	a.c.AccessToken = body.AccessToken
+	a.c.RefreshToken = body.RefreshToken
 
 	return body, nil
 }
