@@ -10,4 +10,4 @@ The api is not yet at a stage where you could really use it, but if you do it is
 It takes time to implement everything, mostly because the api first needs to be reverse engineered any help on endpoint documentation would be appreciated.
 
 ## License
-refer to [license.md](license.md).
+refer to [LICENSE.md](license.md).
