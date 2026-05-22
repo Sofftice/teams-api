@@ -1,3 +1,3 @@
-module softtice/team-api
+module github.com/Softtice/team-api
 
 go 1.26
