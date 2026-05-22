@@ -6,12 +6,12 @@ import (
 )
 
 type Client struct {
-	Access_token  string
-	Refresh_token string
-	Id_token      string
-	Client_info   string
-	HTTPClient    *http.Client
-	config        Config
+	AccessToken  string
+	RefreshToken string
+	IdToken      string
+	ClientInfo   string
+	HTTPClient   *http.Client
+	config       Config
 
 	//Messages *MessagesService
 	Auth *AuthService
@@ -19,15 +19,14 @@ type Client struct {
 
 // Generate a new client
 func NewClient(accessToken, refreshToken, idToken, clientInfo string) *Client {
-
 	c := &Client{
-		Access_token:  accessToken,
-		Refresh_token: refreshToken,
-		Id_token:      idToken,
-		Client_info:   clientInfo,
-		HTTPClient:    &http.Client{},
-		config:        DefaultConfig(),
-		Auth:          &AuthService{},
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+		IdToken:      idToken,
+		ClientInfo:   clientInfo,
+		HTTPClient:   &http.Client{},
+		config:       DefaultConfig(),
+		Auth:         &AuthService{},
 	}
 
 	c.Auth.c = c
